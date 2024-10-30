@@ -1,19 +1,96 @@
-<!DOCTYPE HTML>
-  <head>
-    <title></title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Cost Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
 
-    <!-- MDL Inclusions -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    .result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
 
-  </head>
+  <h1>Pizza Cost Calculator</h1>
 
-  <body>
-  
-    <form name="myForm" action="handler.php" method="POST">
-          
-    </form>
+  <form id="pizzaForm">
+    <h2>Pizza Size Options:</h2>
+    <label>
+      <input type="radio" name="size" value="large" required>
+      Large ($6.00)
+    </label><br>
+    <label>
+      <input type="radio" name="size" value="extra_large">
+      Extra Large ($10.00)
+    </label><br>
 
-  </body>
+    <h2>Topping Options:</h2>
+    <label>
+      <input type="radio" name="toppings" value="1" required>
+      1 Topping ($1.00)
+    </label><br>
+    <label>
+      <input type="radio" name="toppings" value="2">
+      2 Toppings ($1.75)
+    </label><br>
+    <label>
+      <input type="radio" name="toppings" value="3">
+      3 Toppings ($2.50)
+    </label><br>
+    <label>
+      <input type="radio" name="toppings" value="4">
+      4 Toppings ($3.35)
+    </label><br>
+
+    <button type="submit">Calculate Cost</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    document.getElementById('pizzaForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const size = document.querySelector('input[name="size"]:checked').value;
+      const toppings = document.querySelector('input[name="toppings"]:checked').value;
+
+      const LARGE_COST = 6.00;
+      const EXTRA_LARGE_COST = 10.00;
+
+      const TOPPING_COSTS = {
+        1: 1.00,
+        2: 1.75,
+        3: 2.50,
+        4: 3.35
+      };
+
+      const HST_RATE = 0.13;
+
+      let pizza_cost = size === 'large' ? LARGE_COST : EXTRA_LARGE_COST;
+      let topping_cost = TOPPING_COSTS[toppings];
+      let subtotal = pizza_cost + topping_cost;
+      let tax = subtotal * HST_RATE;
+      let final_total = subtotal + tax;
+
+      let pizza_size = size === 'large' ? "Large" : "Extra Large";
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+            <h2>--- Order Summary ---</h2>
+            <p>Pizza Size: ${pizza_size}</p>
+            <p>Number of Toppings: ${toppings}</p>
+            <p>Subtotal: $${subtotal.toFixed(2)}</p>
+            <p>HST (13%): $${tax.toFixed(2)}</p>
+            <p>Total Cost: $${final_total.toFixed(2)}</p>
+        `;
+    });
+  </script>
+
+</body>
 </html>
