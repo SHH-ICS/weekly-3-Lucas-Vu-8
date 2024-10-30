@@ -54,11 +54,11 @@ def calculate_pizza_cost():
     
     # Display results
     print("\n--- Order Summary ---")
-    print(f"Pizza Size: {pizza_size}")
-    print(f"Number of Toppings: {topping_count}")
-    print(f"Subtotal: ${subtotal:.2f}")
-    print(f"HST (13%): ${tax:.2f}")
-    print(f"Total Cost: ${final_total:.2f}")
+    print("Pizza Size: {pizza_size}")
+    print("Number of Toppings: {topping_count}")
+    print("Subtotal: ${subtotal:.2f}")
+    print("HST (13%): ${tax:.2f}")
+    print("Total Cost: ${final_total:.2f}")
     
 # Run the program
 calculate_pizza_cost()
